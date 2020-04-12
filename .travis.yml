@@ -14,4 +14,8 @@ after_success:
     - docker build -t marasyad/multi-nginx ./nginx
     - docker build -t marasyad/multi-api ./api
     - docker build -t marasyad/multi-worker ./worker
-    
+    - echo "$docker_password" | docker login -u "$docker_id" --password-stdin
+    - docker push marasyad/multi-client
+    - docker push marasyad/multi-nginx
+    - docker push marasyad/multi-api
+    - docker push marasyad/multi-worker
