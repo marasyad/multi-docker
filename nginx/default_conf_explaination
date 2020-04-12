@@ -1,0 +1,3 @@
+rewrite /api/(.*) /$1 break; it has a syntax = rewrite regex_find regex_replace break;
+/$1 means the text inside /(.*), the break means stoping applying other rewrite after this rewrite
+
