@@ -1,0 +1,17 @@
+language: generic
+sudo : require
+services:
+    - docker
+
+before_install:
+    - docker build -t marasyad/testing_react -f ./client/Dockerfile.dev ./client 
+
+script:
+    - docker run -e CI=true USERNAME/react-test npm test
+
+after_success:
+    - docker build -t marasyad/multi-client ./client
+    - docker build -t marasyad/multi-nginx ./nginx
+    - docker build -t marasyad/multi-api ./api
+    - docker build -t marasyad/multi-worker ./worker
+    
