@@ -4,18 +4,22 @@ services:
     - docker
 
 before_install:
-    - docker build -t marasyad/testing_react -f ./client/Dockerfile.dev ./client 
+    - docker build -t 1101174182/testing_react -f ./client/Dockerfile.dev ./client 
 
 script:
-    - docker run -e CI=true marasyad/testing_react npm test
+    - docker run -e CI=true 1101174182/testing_react npm test
 
 after_success:
-    - docker build -t marasyad/multi-client ./client
-    - docker build -t marasyad/multi-nginx ./nginx
-    - docker build -t marasyad/multi-api ./api
-    - docker build -t marasyad/multi-worker ./worker
-    - docker login -u "$docker_id" -p "$docker_password" docker.io
-    - docker push marasyad/multi-client
-    - docker push marasyad/multi-nginx
-    - docker push marasyad/multi-api
-    - docker push marasyad/multi-worker
+    - docker build -t multi-client ./client
+    - docker build -t multi-nginx ./nginx
+    - docker build -t multi-api ./api
+    - docker build -t multi-worker ./worker
+    - docker login -u "$docker_id" --password-stdin "$docker_password" docker.io
+    - docker tag multi-client 1101174182/multi-client
+    - docker push 1101174182/multi-client
+    - docker tag multi-nginx 1101174182/multi-nginx
+    - docker push 1101174182/multi-nginx
+    - docker tag multi-api 1101174182/multi-api
+    - docker push 1101174182/multi-api
+    - docker tag multi-worker 1101174182/multi-worker
+    - docker push 1101174182/multi-worker
