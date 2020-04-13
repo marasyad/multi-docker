@@ -23,3 +23,15 @@ after_success:
     - docker push 1101174182/multi-api
     - docker tag multi-worker 1101174182/multi-worker
     - docker push 1101174182/multi-worker
+deploy:
+    edge: true
+    provider: elasticbeanstalk
+    region: us-east-2
+    app: multi-docker
+    env: MultiDocker-env
+    bucker_name: elasticbeanstalk-us-east-2-586928785119
+    docker_path: docker-multi
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
